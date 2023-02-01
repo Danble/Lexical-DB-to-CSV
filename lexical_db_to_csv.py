@@ -2,6 +2,9 @@ import csv
 import re
 
 # FIRST PART
+def add_headers_to_set(headers_set, text, separator):
+  headers_set.add(text.split(separator)[0])
+  
 def prepare_to_csv_export(file_path, separator=',') :
   with open(file_path, 'r', encoding="utf-8") as file:
     lexical_db_delimiter = '\\lx'
@@ -17,21 +20,7 @@ def prepare_to_csv_export(file_path, separator=',') :
 
     return (gross_headers, gross_entries)
 
-def add_headers_to_set(headers_set, text, separator):
-  headers_set.add(text.split(separator)[0])
-
 # SECOND PART
-def create_csv(file_path, csv_name):
-  gross_dictionary_data = prepare_to_csv_export(file_path)
-  headers = clean_headers(gross_dictionary_data[0])
-  entries = clean_entries(gross_dictionary_data[1])
-  print(entries)
-
-  # with open(csv_name, 'w', encoding='utf-8') as csv_file:
-  #   writer = csv.DictWriter(csv_file, fieldnames=headers, lineterminator='\n')
-  #   writer.writeheader()
-  #   writer.writerows(entries)
-
 def clean_headers(headers_set):
   if '\n' in headers_set:
     headers_set.remove('\n')
@@ -57,6 +46,17 @@ def replace_commas_inside_quotes_safely(text, replacement_code):
       temporal_replacement = string_in_quotes.replace(',', replacement_code)
       text = text.replace(string_in_quotes, temporal_replacement)
   return text
+
+def create_csv(file_path, csv_name):
+  gross_dictionary_data = prepare_to_csv_export(file_path)
+  headers = clean_headers(gross_dictionary_data[0])
+  entries = clean_entries(gross_dictionary_data[1])
+  print(entries)
+
+  # with open(csv_name, 'w', encoding='utf-8') as csv_file:
+  #   writer = csv.DictWriter(csv_file, fieldnames=headers, lineterminator='\n')
+  #   writer.writeheader()
+  #   writer.writerows(entries)
 
 
 
