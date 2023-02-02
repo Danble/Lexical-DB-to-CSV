@@ -34,6 +34,14 @@ def test_clean_headers():
                       '\\gn', '\\lx', '\\nc', '\\b', '\\tl', '\\re', '\\dt'
                     },)
 
+def test_remove_string_empty_key_safely():
+  new_dictionary = {1: '1', '': '2', 2: '3'}
+  remove_string_empty_key_safely(new_dictionary)
+  cleaned_dictionary = new_dictionary
+  remove_string_empty_key_safely(cleaned_dictionary)
+  assert new_dictionary == {1: '1', 2: '3'}
+  assert cleaned_dictionary == {1: '1', 2: '3'}
+
 def test_clean_entries():
   new_array = clean_entries([
       '\\lx,ïìtok,\\ph,it\x8dk,\\tl,L [H,\\pl,toktuè,\\ph2,t\x8dktu,\\tlp,H] L,\\b,,\\ps,n,\\nc,5/13,\\n,1404,\\ge,"brook, stream",\\re,brook ; stream,\\gn,ruisseau,\\dt,24/Jan/2005,,'
@@ -52,8 +60,7 @@ def test_clean_entries():
       '\\ge': '"brook&&& stream"',
       '\\re': 'brook ; stream',
       '\\gn': 'ruisseau',
-      '\\dt': '24/Jan/2005',
-      '': ''
+      '\\dt': '24/Jan/2005'
   }]
 
 def test_replace_commas_inside_quotes_safely():
