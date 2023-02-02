@@ -64,5 +64,5 @@ def test_clean_entries():
   }]
 
 def test_replace_commas_inside_quotes_safely():
-  text = replace_commas_inside_quotes_safely('just a comma , "change my , for an *"', '*')
-  assert text == 'just a comma , "change my * for an *"'
+  text = replace_commas_inside_quotes_safely('"just, a, comma" , "change my , for an *"', '*')
+  assert text == '"just* a* comma" , "change my * for an *"'

@@ -45,9 +45,10 @@ def clean_entries(entries_array):
 
 def replace_commas_inside_quotes_safely(text, replacement_code):
   if re.search('("[^",]+),([^"]+")', text):
-      string_in_quotes = re.search('("[^",]+),([^"]+")', text)[0]
-      temporal_replacement = string_in_quotes.replace(',', replacement_code)
-      text = text.replace(string_in_quotes, temporal_replacement)
+      strings_in_quotes = re.finditer('("[^",]+),([^"]+")', text)
+      for fragment_in_quotes in strings_in_quotes:        
+        temporal_replacement = fragment_in_quotes[0].replace(',', replacement_code)
+        text = text.replace(fragment_in_quotes[0], temporal_replacement)
   return text
 
 def create_csv(file_path, csv_name):
@@ -61,4 +62,4 @@ def create_csv(file_path, csv_name):
     writer.writerows(entries)
 
 
-create_csv('./test_sheet.csv', 'test.csv')
+create_csv('./BUM Lexicon.csv', 'test.csv')
