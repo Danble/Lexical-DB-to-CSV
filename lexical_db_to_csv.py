@@ -12,7 +12,6 @@ def prepare_to_csv_export(file_path, separator=',') :
     gross_headers = set()
 
     for line in file.readlines():
-      #TODO it might be easier to just get rid double linebreaks before replace them for commas?
       #TODO if separator is not comma, replace spaces for commas (not sure if every space shoid be considered)
       entry_string += line.replace('\n', ',')
       #TODO remove alone line breaks
@@ -53,12 +52,11 @@ def replace_commas_inside_quotes_safely(text, replacement_code):
         text = text.replace(fragment_in_quotes[0], temporal_replacement)
   return text
 
-#TODO create test before implement
 def remove_extra_commas(entry):
   full_entries_with_extra_commas_regex = '\\\\([^,])+,[^,\n]+(,,+)'
   cleaned_entry = re.sub('(,{2}),+', ',,', entry)
   if re.search(full_entries_with_extra_commas_regex, cleaned_entry):
-    #TODO fix for multiple linebreaks in different fields
+    #TODO fix for multiple linebreaks in different fields (using finditer maybe)
     replacement = re.search(full_entries_with_extra_commas_regex, cleaned_entry)[0]
     cleaned_entry = cleaned_entry.replace(replacement, replacement[:-1])
   return cleaned_entry
@@ -74,4 +72,4 @@ def create_csv(file_path, csv_name):
     writer.writerows(entries)
 
 
-create_csv('./test_sheet_2.csv', 'test.csv')
+create_csv('./test_sheet.csv', 'test.csv')
