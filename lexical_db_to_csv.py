@@ -72,4 +72,4 @@ def create_csv(file_path, csv_name):
     writer.writerows(entries)
 
 
-create_csv('./test_sheet.csv', 'test.csv')
+create_csv('./test_sheet.txt', 'test.csv')
