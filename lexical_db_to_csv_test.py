@@ -7,7 +7,7 @@ def test_add_headers_to_set():
 
 
 def test_prepare_to_csv_export():
-  myTuple = prepare_to_csv_export('./test_sheet.csv')
+  myTuple = prepare_to_csv_export('./test_sheet.txt')
   assert myTuple == (
     {
       '\\lx', '\\dt',
@@ -62,3 +62,5 @@ def test_remove_extra_commas():
   assert cleaned_entry == '\\lx,test,\\ph,,\\ps'
   cleaned_entry = remove_extra_commas('\\lx,test,,\\ph,,,\\ps')
   assert cleaned_entry == '\\lx,test,\\ph,,\\ps'
+  cleaned_entry = remove_extra_commas('\\lx,test,,\\ph,tɛst,,\\ps')
+  assert cleaned_entry == '\\lx,test,\\ph,tɛst,\\ps'

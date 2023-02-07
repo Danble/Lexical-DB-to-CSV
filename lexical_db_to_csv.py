@@ -14,7 +14,6 @@ def prepare_to_csv_export(file_path, separator=',') :
     for line in file.readlines():
       #TODO if separator is not comma, replace spaces for commas (not sure if every space shoid be considered)
       entry_string += line.replace('\n', ',')
-      #TODO remove alone line breaks
       add_headers_to_set(gross_headers, line, separator)
     gross_entries = [lexical_db_delimiter + line for line in entry_string.split(lexical_db_delimiter) if line]
 
@@ -54,7 +53,8 @@ def replace_commas_inside_quotes_safely(text, replacement_code):
 
 def remove_extra_commas(entry):
   full_entries_with_extra_commas_regex = '\\\\([^,])+,[^,\n]+(,,+)'
-  cleaned_entry = re.sub('(,{2}),+', ',,', entry)
+  match_more_than_two_commas_regex = '(,{2}),+'
+  cleaned_entry = re.sub(match_more_than_two_commas_regex, ',,', entry)
   if re.search(full_entries_with_extra_commas_regex, cleaned_entry):
     #TODO fix for multiple linebreaks in different fields (using finditer maybe)
     replacement = re.search(full_entries_with_extra_commas_regex, cleaned_entry)[0]
