@@ -56,9 +56,10 @@ def remove_extra_commas(entry):
   match_more_than_two_commas_regex = '(,{2}),+'
   cleaned_entry = re.sub(match_more_than_two_commas_regex, ',,', entry)
   if re.search(full_entries_with_extra_commas_regex, cleaned_entry):
-    #TODO fix for multiple linebreaks in different fields (using finditer maybe)
-    replacement = re.search(full_entries_with_extra_commas_regex, cleaned_entry)[0]
-    cleaned_entry = cleaned_entry.replace(replacement, replacement[:-1])
+    replacements = re.finditer(full_entries_with_extra_commas_regex, cleaned_entry)
+    for replacement in replacements:
+      temporal_replacement = replacement[0].replace(replacement[0], replacement[0][:-1])
+      cleaned_entry = cleaned_entry.replace(replacement[0], temporal_replacement)
   return cleaned_entry
 
 def create_csv(file_path, csv_name):

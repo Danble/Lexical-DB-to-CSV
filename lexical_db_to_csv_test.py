@@ -64,3 +64,5 @@ def test_remove_extra_commas():
   assert cleaned_entry == '\\lx,test,\\ph,,\\ps'
   cleaned_entry = remove_extra_commas('\\lx,test,,\\ph,tɛst,,\\ps')
   assert cleaned_entry == '\\lx,test,\\ph,tɛst,\\ps'
+  cleaned_entry = remove_extra_commas('\\lx,test,,,\\ph,tɛst,,,\\ps')
+  assert cleaned_entry == '\\lx,test,\\ph,tɛst,\\ps'
