@@ -1,6 +1,22 @@
 import csv
 from helpers import *
-# CLEANERS
+
+# FIRST PART
+def prepare_to_csv_export(file_path, separator=',') :
+  with open(file_path, 'r', encoding="utf-8") as file:
+    lexical_db_delimiter = '\\lx'
+    entry_string = ''
+    gross_headers = set()
+
+    for line in file.readlines():
+      #TODO if separator is not comma, replace spaces for commas (not sure if every space shoid be considered)
+      entry_string += line.replace('\n', ',')
+      add_headers_to_set(gross_headers, line, separator)
+    gross_entries = [lexical_db_delimiter + line for line in entry_string.split(lexical_db_delimiter) if line]
+
+    return (gross_headers, gross_entries)
+
+# SECOND PART
 def clean_headers(headers_set):
   if '\n' in headers_set:
     headers_set.remove('\n')
@@ -14,6 +30,7 @@ def clean_entries(entries_array, temporal_comma_replacement):
     entry = remove_extra_commas(entry)
     elements = entry.split(',')
     new_dictionary = {}
+    #TODO extract this part
     for i in range(0, len(elements), 2):
       if (i < len(elements)-2):
         elements[i+1] = undo_comma_replacement(elements[i+1], temporal_comma_replacement)
@@ -30,6 +47,7 @@ def create_csv(file_path, csv_name):
   entries = clean_entries(gross_dictionary_data[1], '&&&')
 
   with open(csv_name, 'w', encoding='utf-8') as csv_file:
+    #TODO extract this part
     writer = csv.DictWriter(csv_file, fieldnames=headers, lineterminator='\n')
     writer.writeheader()
     writer.writerows(entries)

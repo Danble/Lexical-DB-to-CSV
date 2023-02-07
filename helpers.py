@@ -4,20 +4,6 @@ import re
 def add_headers_to_set(headers_set, text, separator):
   headers_set.add(text.split(separator)[0])
   
-def prepare_to_csv_export(file_path, separator=',') :
-  with open(file_path, 'r', encoding="utf-8") as file:
-    lexical_db_delimiter = '\\lx'
-    entry_string = ''
-    gross_headers = set()
-
-    for line in file.readlines():
-      #TODO if separator is not comma, replace spaces for commas (not sure if every space shoid be considered)
-      entry_string += line.replace('\n', ',')
-      add_headers_to_set(gross_headers, line, separator)
-    gross_entries = [lexical_db_delimiter + line for line in entry_string.split(lexical_db_delimiter) if line]
-
-    return (gross_headers, gross_entries)
-  
 # SECOND PART
 def remove_string_empty_key_safely(dictionary):
   return dictionary.pop('', None)
