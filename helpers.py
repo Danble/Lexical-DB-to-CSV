@@ -26,6 +26,7 @@ def undo_comma_replacement(text, temporal_character_replacement):
   return text
 
 def turn_entry_into_dictionary(elements, temporal_replacement):
+  #TODO before adding elements into dictionaries, we need to save the targeted header duplicates and also add them to the headers set
   new_dictionary = {}
   for i in range(0, len(elements), 2):
     if (i < len(elements)-1):
@@ -33,7 +34,7 @@ def turn_entry_into_dictionary(elements, temporal_replacement):
       new_dictionary[elements[i]] = elements[i+1]
     remove_string_empty_key_safely(new_dictionary)
   return new_dictionary
-#TODO create test
+
 def replace_multiple_text_fragments(text, regex, replacement=None, fragment_to_replace=None):
   if re.search(regex, text):
     fragments = re.finditer(regex, text)
@@ -48,3 +49,10 @@ def replace_multiple_text_fragments(text, regex, replacement=None, fragment_to_r
         temporal_replacement = fragment[0].replace(fragment[0], fragment[0][:-1])
       text = text.replace(fragment[0], temporal_replacement)
   return text
+
+#TODO
+def find_duplicate_headers_in_array(elements, target_header):
+  pass
+
+def add_new_header_to_set(headers_set, new_header):
+  pass
