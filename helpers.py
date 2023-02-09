@@ -25,6 +25,14 @@ def undo_comma_replacement(text, temporal_character_replacement):
   text = replace_multiple_text_fragments(text, match_temporal_character_inisde_quotes_regex, ',', temporal_character_replacement)
   return text
 
+def turn_entry_into_dictionary(elements, temporal_replacement):
+  new_dictionary = {}
+  for i in range(0, len(elements), 2):
+    if (i < len(elements)-1):
+      elements[i+1] = undo_comma_replacement(elements[i+1], temporal_replacement)
+      new_dictionary[elements[i]] = elements[i+1]
+    remove_string_empty_key_safely(new_dictionary)
+  return new_dictionary
 #TODO create test
 def replace_multiple_text_fragments(text, regex, replacement=None, fragment_to_replace=None):
   if re.search(regex, text):

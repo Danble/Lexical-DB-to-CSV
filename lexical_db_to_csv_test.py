@@ -61,12 +61,26 @@ def test_undo_comma_replacement():
 
 def test_clean_entries():
   new_array = clean_entries([
-      '\\lx,Arroyo,\\ph,,,\\ge,"brook, stream",\\re,brook ; stream,,\\dt,24/Jan/2023,,'
+      '\\lx,Arroyo,\\ph,,,\\ge,"brook, stream",\\re,brook ; stream,,\\dt,24/Jan/2023,,',
+      '\\lx,Manzana,\\ph,,,\\ge,apple,\\re,,\\dt,09/Feb/2023'
   ], '&&&')
-  assert new_array == [{
+  assert new_array == [
+    {
       '\\lx': 'Arroyo',
       '\\ph': '',
       '\\ge': '"brook, stream"',
       '\\re': 'brook ; stream',
       '\\dt': '24/Jan/2023'
-  }]
+    },
+    {
+      '\\lx': 'Manzana',
+      '\\ph': '',
+      '\\ge': 'apple',
+      '\\re': '',
+      '\\dt': '09/Feb/2023'
+    }
+  ]
+
+def test_turn_entry_into_dictionary():
+  dictionary = turn_entry_into_dictionary(['\\lx', 'Arroyo', '\\ge', '"brook&&& stream"', '\\dt', '24/Jan/2023'], '&&&')
+  assert dictionary == {'\\ge': '"brook, stream"', '\\lx': 'Arroyo', '\\dt': '24/Jan/2023'}
