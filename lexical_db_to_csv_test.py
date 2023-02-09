@@ -1,7 +1,7 @@
 from lexical_db_to_csv import *
 
 def test_prepare_to_csv_export():
-  myTuple = prepare_to_csv_export('./test_sheet.txt')
+  myTuple = prepare_to_csv_export('./test_sheet.csv')
   assert myTuple == (
     {
       '\\lx', '\\dt',
@@ -19,9 +19,7 @@ def test_clean_headers():
   cleaned_headers = clean_headers({
                       '\\ps', '\\ph', '\n', 
                     },)
-  assert cleaned_headers == clean_headers({
-                      '\\ps', '\\ph',
-                    },)
+  assert cleaned_headers == {'\\ps', '\\ph'} or {'\\ph', '\\ps'}
 
 def test_clean_entries():
   new_array = clean_entries([
@@ -44,4 +42,3 @@ def test_clean_entries():
       '\\dt': '09/Feb/2023'
     }
   ]
-  

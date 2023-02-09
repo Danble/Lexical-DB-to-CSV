@@ -9,8 +9,8 @@ def remove_string_empty_key_safely(dictionary):
   return dictionary.pop('', None)
 
 def replace_commas_inside_quotes_safely(text, replacement_code):
-  match_commas_inisde_quotes_regex = '("[^",]+),([^"]+")'
-  text = replace_multiple_text_fragments(text, match_commas_inisde_quotes_regex, replacement_code, ',')
+  commas_between_quotes_regex = '("[^",]+),([^"]+")'
+  text = replace_multiple_text_fragments(text, commas_between_quotes_regex, replacement_code, ',')
   return text
 
 def remove_extra_commas(entry):

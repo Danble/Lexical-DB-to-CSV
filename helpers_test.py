@@ -17,6 +17,7 @@ def test_replace_commas_inside_quotes_safely():
   text = replace_commas_inside_quotes_safely('"just, a, comma" , "change my , for an *"', '*')
   assert text == '"just* a* comma" , "change my * for an *"'
 
+#TODO break in two loops
 def test_remove_extra_commas():
   cleaned_entry = remove_extra_commas('\\lx,test,\\ph,,,,,\\ps')
   assert cleaned_entry == '\\lx,test,\\ph,,\\ps'
@@ -38,3 +39,5 @@ def test_undo_comma_replacement():
 def test_turn_entry_into_dictionary():
   dictionary = turn_entry_into_dictionary(['\\lx', 'Arroyo', '\\ge', '"brook&&& stream"', '\\dt', '24/Jan/2023'], '&&&')
   assert dictionary == {'\\ge': '"brook, stream"', '\\lx': 'Arroyo', '\\dt': '24/Jan/2023'}
+
+#def test_replace_multiple_text_fragments():
