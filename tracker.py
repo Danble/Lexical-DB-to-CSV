@@ -1,17 +1,17 @@
-#TODO create strong typed
+from typing import List, Set
 class Tracker:
-  def __init__(self, search_set, main_header):
+  def __init__(self, headers_to_track: Set[str] , main_header: str):
     self.main_header = main_header
-    self.element_counter = {key: 0 for key in search_set}
-    self.search_set = search_set
+    self.element_counter = {key: 0 for key in headers_to_track}
+    self.headers_to_track = headers_to_track
 
-  def __change_keys_display(self, element: str):
+  def __change_keys_display(self, element: str) -> str:
     header_counter = str(self.element_counter[self.main_header])
     key_counter = str(self.element_counter[element])
     element += header_counter + ('-' + key_counter if self.element_counter[element] > 1 and self.main_header != element else '')
     return element
  
-  def __handle_counters(self, element):
+  def __handle_counters(self, element: str) -> None:
     if self.main_header == element:
       for key in self.element_counter:
         if key == self.main_header:
@@ -21,9 +21,9 @@ class Tracker:
     else:
       self.element_counter[element] += 1
 
-  def number_duplicates_in_list(self, pair_entry_list):
-    for i in range(len(pair_entry_list)):
-      if pair_entry_list[i] in self.search_set:
-        self.__handle_counters(pair_entry_list[i])
-        pair_entry_list[i] = self.__change_keys_display(pair_entry_list[i])
+  def number_duplicates_in_list(self, pair_entry: List[str]) -> None:
+    for i in range(len(pair_entry)):
+      if pair_entry[i] in self.search_set:
+        self.__handle_counters(pair_entry[i])
+        pair_entry[i] = self.__change_keys_display(pair_entry[i])
   

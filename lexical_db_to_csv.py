@@ -1,5 +1,8 @@
 import csv
 from helpers import *
+from tracker import Tracker
+
+# tracking_headers
 
 # FIRST PART
 def prepare_to_csv_export(file_path, separator=',') :
@@ -28,6 +31,7 @@ def clean_entries(entries_array, temporal_comma_replacement):
     entry = replace_commas_inside_quotes_safely(entry, temporal_comma_replacement)
     entry = remove_extra_commas(entry)
     elements = entry.split(',')
+    #TODO before adding elements into dictionaries, we need to save the targeted header duplicates and also add them to the headers set
     dictionary_array.append(turn_entry_into_dictionary(elements, temporal_comma_replacement))
   return dictionary_array
 
@@ -46,4 +50,4 @@ def create_csv(file_path, csv_name):
   export_to_csv(headers, entries, csv_name)
   
 
-create_csv('./test_sheet.csv', 'test_result.csv')
+create_csv('./test_sheet.csv', 'test_result_improved.csv')
