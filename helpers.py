@@ -63,21 +63,3 @@ def allow_duplicates(entry_list, headers_targeted):
       else: return el
   filtered = map(my_fn, entry_list)
   return list(filtered)
-
-# my_set = {'\\ge', '\\xv'}
-# my_list = ['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '', '\\ge', 'stream', '\\xv', 'the stream flows']
-
-# class Test:
-#     def __init__(self, search_set):
-#         self.element_counter = {key: 0 for key in search_set}
-        
-#     def number_duplicates(self, my_list, my_set):
-#         for i in range(len(my_list)):
-#             if my_list[i] in my_set:
-#                 self.element_counter[my_list[i]] += 1
-#                 my_list[i] = my_list[i] + str(self.element_counter[my_list[i]])
-                
-# my_test = Test(my_set)
-# my_test.number_duplicates(my_list, my_set)
-# print(my_test.element_counter)
-# print(my_list)

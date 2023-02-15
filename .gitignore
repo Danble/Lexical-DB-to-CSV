@@ -3,3 +3,4 @@ __pycache__/
 venv/
 *.csv
 !test_sheet.csv
+tester.py
