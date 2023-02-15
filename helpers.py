@@ -6,7 +6,7 @@ def add_headers_to_set(headers: set, text: str, separator: str) -> None:
   headers.add(text.split(separator)[0])
   
 # SECOND PART
-def remove_string_empty_key_safely(entry: Dict[str:str]) -> Dict[str:str]:
+def remove_string_empty_key_safely(entry: Dict[str,str]) -> Dict[str,str]:
   return entry.pop('', None)
 
 def replace_commas_inside_quotes_safely(text: str, replacement_code: str) -> str:
@@ -26,7 +26,7 @@ def undo_comma_replacement(text: str, temporal_character_replacement: str) -> st
   text = replace_multiple_text_fragments(text, match_temporal_character_inisde_quotes_regex, ',', temporal_character_replacement)
   return text
 
-def turn_entry_into_dictionary(elements: List[str], temporal_replacement: str) -> Dict[str:str]:
+def turn_entry_into_dictionary(elements: List[str], temporal_replacement: str) -> Dict[str,str]:
   new_dictionary = {}
   for i in range(0, len(elements), 2):
     if (i < len(elements)-1):

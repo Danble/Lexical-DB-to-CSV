@@ -23,7 +23,7 @@ class Tracker:
 
   def number_duplicates_in_list(self, pair_entry: List[str]) -> None:
     for i in range(len(pair_entry)):
-      if pair_entry[i] in self.search_set:
+      if pair_entry[i] in self.headers_to_track:
         self.__handle_counters(pair_entry[i])
         pair_entry[i] = self.__change_keys_display(pair_entry[i])
   
