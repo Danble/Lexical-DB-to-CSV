@@ -1,4 +1,40 @@
+import pytest
 from tracker import Tracker
+
+tracker1 = Tracker({'\\lx', '\\xv'}, '\\lx')
+@pytest.mark.parametrize(
+        ('input_x', 'expected'),
+        (
+            ('\\lx', {'\\lx': 1, '\\xv': 0}),
+            ('\\xv', {'\\lx': 1, '\\xv': 1}),
+            ('\\xv', {'\\lx': 1, '\\xv': 2}),
+            ('\\lx', {'\\lx': 2, '\\xv': 0}),
+            ('\\xv', {'\\lx': 2, '\\xv': 1}),
+        )
+)
+def test_handle_counters(input_x, expected):
+    tracker1._Tracker__handle_counters(input_x)
+    assert tracker1.element_counter == expected
+
+tracker2 = Tracker({'\\lx', '\\xv'}, '\\lx')
+@pytest.mark.parametrize(
+        ('input_x', 'expected'),
+        (
+            ('\\lx', '\\lx1'),
+            ('\\xv', '\\xv1'),
+            ('\\xv', '\\xv1-2'),
+            ('\\lx', '\\lx2'),
+            ('\\xv', '\\xv2'),
+            ('\\lx', '\\lx3'),
+            ('\\lx', '\\lx4'),
+            ('\\xv', '\\xv4'),
+            ('\\xv', '\\xv4-2'),
+            ('\\xv', '\\xv4-3'),
+        )
+)
+def test_change_keys_display(input_x, expected):
+    tracker2._Tracker__handle_counters(input_x)
+    assert tracker2._Tracker__change_keys_display(input_x) == expected 
 
 def test_tracker_initialization():
     my_tracker = Tracker({'test'}, 'test')
@@ -21,7 +57,7 @@ def test_number_duplicates_in_list_with_multiple_examples():
     my_tracker.number_duplicates_in_list(my_list)
     assert my_list == ['\\lx', 'Arroyo', '\\ge1', 'stream', '\\xv1', 'the stream', '\\xv1-2', 'the stream flows', '\\ge2', 'water', '\\xv2', 'the water is blue', '\\xv2-2', 'the water is green', '\\xv2-3', 'the water is pink', '\\ge3', 'brook', '\\xv3', 'the brook is flowing']
 
-def test_random():
+def test_number_duplicates_in_list_considering_some_headers_only():
     my_list = ['\\lx', 'Aprender', '\\n', 'new', '\\ge', 'nearby', '\\re', 'nearby', '\\gn', '', '\\dt', '11/Jan/2005', '\\ps', 'v', '\\n', '0281a', '\\ge', '"learn999 teach999 tame"', '\\re', 'learn ; teach ; tame', '\\xv', 'learn is fun', '\\xv', 'learning is good', '\\gn', 'apprendre', '\\dt', '28/Jan/2005']
     my_tracker = Tracker({'\\ge', '\\re', '\\xv'}, '\\ge')
     my_tracker.number_duplicates_in_list(my_list)

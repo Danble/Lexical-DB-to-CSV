@@ -1,15 +1,16 @@
+#TODO create strong typed
 class Tracker:
   def __init__(self, search_set, main_header):
     self.main_header = main_header
     self.element_counter = {key: 0 for key in search_set}
     self.search_set = search_set
-  #TODO create tests for this fn
-  def __change_keys_display(self, element):
+
+  def __change_keys_display(self, element: str):
     header_counter = str(self.element_counter[self.main_header])
-    counter = str(self.element_counter[element])
-    element += header_counter + ('-' + counter if self.element_counter[element] > 1 and self.main_header != element else '')
+    key_counter = str(self.element_counter[element])
+    element += header_counter + ('-' + key_counter if self.element_counter[element] > 1 and self.main_header != element else '')
     return element
-  #TODO create tests for this fn  
+ 
   def __handle_counters(self, element):
     if self.main_header == element:
       for key in self.element_counter:
