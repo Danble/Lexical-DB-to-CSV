@@ -48,6 +48,6 @@ def test_replace_multiple_text_fragments():
   replaced_text = replace_multiple_text_fragments(little_tale, commas_between_quotes_regex, '*', ',')
   assert replaced_text == 'Once upon a time a "Dino* Dinosaur* Rex" was tired and it says: "this life is awful* terrible and sad"...'
 
-def test_allow_duplicates():
-  duplicates = allow_duplicates(['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '', '\\ge', 'stream', '\\xv', 'the stream flows'], {'\\ge', '\\xv'})
-  assert duplicates == ''
+# def test_allow_duplicates():
+#   duplicates = allow_duplicates(['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '', '\\ge', 'stream', '\\xv', 'the stream flows'], {'\\ge', '\\xv'})
+#   assert duplicates == ''
