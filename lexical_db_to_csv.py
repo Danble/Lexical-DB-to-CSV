@@ -48,5 +48,5 @@ def create_csv(file_path: str, csv_name: str) -> None:
   entries = clean_entries(gross_dictionary_data[1], '&&&')
   export_to_csv(headers, entries, csv_name)
   
-
-create_csv('./test_sheet.csv', 'test_result_improved.csv')
+if __name__ == "__main__":
+  create_csv('./test_sheet.csv', 'test_result_improved.csv')
