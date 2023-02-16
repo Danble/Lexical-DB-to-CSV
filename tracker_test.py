@@ -34,7 +34,24 @@ tracker2 = Tracker({'\\lx', '\\xv'}, '\\lx')
 )
 def test_change_keys_display(input_x, expected):
     tracker2._Tracker__handle_counters(input_x)
-    assert tracker2._Tracker__change_keys_display(input_x) == expected 
+    assert tracker2._Tracker__change_keys_display(input_x) == expected
+
+tracker3 = Tracker({'\\lx', '\\xv'}, '\\lx')
+@pytest.mark.parametrize(
+        ('input_x', 'expected'),
+        (
+            ('\\lx', {'\\lx1'}),
+            ('\\xv', {'\\lx1', '\\xv1'}),
+            ('\\xv', {'\\lx1', '\\xv1', '\\xv1-2'}),
+            ('\\lx', {'\\lx1', '\\xv1', '\\xv1-2', '\\lx2'}),
+            ('\\lx', {'\\lx1', '\\xv1', '\\xv1-2', '\\lx2', '\\lx3'}),
+        )
+)
+def test_get_new_headers(input_x, expected):
+    tracker3._Tracker__handle_counters(input_x)
+    tracker3._Tracker__change_keys_display(input_x)
+    new_headers = tracker3.get_new_headers()
+    assert new_headers == expected
 
 def test_tracker_initialization():
     my_tracker = Tracker({'test'}, 'test')

@@ -3,7 +3,6 @@ from helpers import *
 from tracker import Tracker
 from typing import List, Set, Tuple
 
-# tracking_headers
 
 # FIRST PART
 def prepare_to_csv_export(file_path: str, separator: str = ',') -> Tuple[Set[str], List[str]]:
@@ -23,7 +22,7 @@ def clean_headers(headers: Set[str]) -> Set[str]:
   if '\n' in headers:
     headers.remove('\n')
   return headers
-
+#TODO I think I should split this fn in two
 def clean_entries(entries: List[str], temporal_comma_replacement: str) -> List[Dict[str,str]]:
   dictionary = []
   for entry in entries:
@@ -41,7 +40,7 @@ def export_to_csv(fieldnames: List[str], data: List[Dict[str,str]], csv_name: st
     writer.writeheader()
     writer.writerows(data)
 
-# MAIN FUNCTION
+# MAIN FUNCTION TODO get into its own file
 def create_csv(file_path: str, csv_name: str) -> None:
   gross_dictionary_data = prepare_to_csv_export(file_path)
   headers = list(clean_headers(gross_dictionary_data[0]))
@@ -49,4 +48,4 @@ def create_csv(file_path: str, csv_name: str) -> None:
   export_to_csv(headers, entries, csv_name)
   
 if __name__ == "__main__":
-  create_csv('./test_sheet.csv', 'test_result_improved.csv')
+  create_csv('./test_sheet_2.csv', 'test_result_improved.csv')

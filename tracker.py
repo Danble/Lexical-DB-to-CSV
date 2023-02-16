@@ -4,11 +4,13 @@ class Tracker:
     self.main_header = main_header
     self.element_counter = {key: 0 for key in headers_to_track}
     self.headers_to_track = headers_to_track
+    self.__new_headers = set()
 
   def __change_keys_display(self, element: str) -> str:
     header_counter = str(self.element_counter[self.main_header])
     key_counter = str(self.element_counter[element])
     element += header_counter + ('-' + key_counter if self.element_counter[element] > 1 and self.main_header != element else '')
+    self.__new_headers.add(element)
     return element
  
   def __handle_counters(self, element: str) -> None:
@@ -26,4 +28,7 @@ class Tracker:
       if pair_entry[i] in self.headers_to_track:
         self.__handle_counters(pair_entry[i])
         pair_entry[i] = self.__change_keys_display(pair_entry[i])
+
+  def get_new_headers(self):
+    return self.__new_headers
   
