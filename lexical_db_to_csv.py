@@ -24,7 +24,9 @@ def clean_headers(headers: Set[str]) -> Set[str]:
     return headers
 
 
-def create_entry_dictionaries(entries: List[str], temporal_replacement: str) -> List[Dict[str, str]]:
+def create_entry_dictionaries(
+        entries: List[str],
+        temporal_replacement: str) -> List[Dict[str, str]]:
     dictionaries = []
     for entry in entries:
         entry = clean_entry(entry, temporal_replacement)
