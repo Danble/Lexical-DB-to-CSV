@@ -1,4 +1,4 @@
-from helpers import *
+from helpers import *  # pylint: disable=W0401,W0614
 # TODO improve tests
 
 
@@ -22,9 +22,8 @@ def test_replace_commas_inside_quotes_safely():
         '"just, a, comma" , "change my , for an *"', '*')
     assert text == '"just* a* comma" , "change my * for an *"'
 
+
 # TODO break in two loops
-
-
 def test_remove_extra_commas():
     cleaned_entry = remove_extra_commas('\\lx,test,\\ph,,,,,\\ps')
     assert cleaned_entry == '\\lx,test,\\ph,,\\ps'
@@ -57,18 +56,27 @@ def test_turn_entry_into_dictionary():
 
 
 def test_replace_multiple_text_fragments():
-    little_tale = 'Once upon a time a "Dino, Dinosaur, Rex" was tired and it says: "this life is awful, terrible and sad"...'
+    little_tale = '''
+    Once upon a time a "Dino, Dinosaur, Rex" was tired and it says: "this life is awful, terrible and sad"...
+    '''
     commas_between_quotes_regex = '("[^",]+),([^"]+")'
     replaced_text = replace_multiple_text_fragments(
         little_tale, commas_between_quotes_regex, '*', ',')
-    assert replaced_text == 'Once upon a time a "Dino* Dinosaur* Rex" was tired and it says: "this life is awful* terrible and sad"...'
+    assert replaced_text == '''
+    Once upon a time a "Dino* Dinosaur* Rex" was tired and it says: "this life is awful* terrible and sad"...
+    '''
 
 
 def test_clean_entry():
     cleaned_entry = clean_entry(
         '\\lx,Arroyo,\\ph,,,\\ge,"brook, stream",\\re,brook ; stream,,\\dt,24/Jan/2023,,,,,', '???')
-    assert cleaned_entry == ['\\lx', 'Arroyo', '\\ph', '', '\\ge',
-                             '"brook??? stream"', '\\re', 'brook ; stream', '\\dt', '24/Jan/2023', '']
+    assert cleaned_entry == [
+        '\\lx', 'Arroyo',
+        '\\ph', '',
+        '\\ge', '"brook??? stream"',
+        '\\re', 'brook ; stream',
+        '\\dt', '24/Jan/2023', ''
+    ]
 
 # def test_allow_duplicates():
 #   duplicates = allow_duplicates(['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '', '\\ge', 'stream', '\\xv', 'the stream flows'], {'\\ge', '\\xv'})

@@ -1,9 +1,9 @@
-from lexical_db_to_csv import *
+from lexical_db_to_csv import prepare_to_csv_export, clean_headers, create_entry_dictionaries
 
 
 def test_prepare_to_csv_export():
-    myTuple = prepare_to_csv_export('./test_sheet.csv')
-    assert myTuple == (
+    my_tuple = prepare_to_csv_export('./test_sheet.csv')
+    assert my_tuple == (
         {
             '\\lx', '\\dt',
             '\\extra_header', '\\ph', 'ph',
@@ -29,5 +29,9 @@ def test_create_entry_dictionaries():
         '\\lx,Arroyo,\\ph,,,\\ge,"brook, stream",\\re,brook ; stream,,\\dt,24/Jan/2023,,',
         '\\lx,Manzana,\\ph,,,\\ge,apple,\\re,,\\dt,09/Feb/2023'
     ], '&&&')
-    assert new_array == [{'\\lx': 'Arroyo', '\\ph': '', '\\ge': '"brook, stream"', '\\re': 'brook ; stream',
-                          '\\dt': '24/Jan/2023'}, {'\\lx': 'Manzana', '\\ph': '', '\\ge': 'apple', '\\re': '', '\\dt': '09/Feb/2023'}]
+    assert new_array == [
+        {'\\lx': 'Arroyo', '\\ph': '', '\\ge': '"brook, stream"',
+            '\\re': 'brook ; stream', '\\dt': '24/Jan/2023'},
+        {'\\lx': 'Manzana', '\\ph': '', '\\ge': 'apple',
+         '\\re': '', '\\dt': '09/Feb/2023'}
+    ]
