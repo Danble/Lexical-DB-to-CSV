@@ -49,6 +49,14 @@ def turn_entry_into_dictionary(elements: List[str], temporal_replacement: str) -
     return new_dictionary
 
 
+def clean_entry(entry: str, temporal_comma_replacement: str) -> List[str]:
+    entry = replace_commas_inside_quotes_safely(
+        entry, temporal_comma_replacement)
+    entry = remove_extra_commas(entry)
+    elements = entry.split(',')
+    return elements
+
+
 def replace_multiple_text_fragments(text: str, regex: Pattern, replacement: Optional[str] = None, fragment_to_replace: Optional[str] = None) -> str:
     if re.search(regex, text):
         fragments = re.finditer(regex, text)

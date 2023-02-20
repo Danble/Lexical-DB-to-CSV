@@ -27,14 +27,6 @@ def clean_headers(headers: Set[str]) -> Set[str]:
     return headers
 
 
-def clean_entry(entry: str, temporal_comma_replacement: str) -> List[str]:
-    entry = replace_commas_inside_quotes_safely(
-        entry, temporal_comma_replacement)
-    entry = remove_extra_commas(entry)
-    elements = entry.split(',')
-    return elements
-
-
 def create_entry_dictionaries(entries: List[str], temporal_replacement: str) -> List[Dict[str, str]]:
     dictionaries = []
     for entry in entries:
