@@ -41,7 +41,7 @@ def undo_comma_replacement(text: str, temporal_character_replacement: str) -> st
 def turn_entry_into_dictionary(elements: List[str], temporal_replacement: str) -> Dict[str, str]:
     new_dictionary = {}
     for i in range(0, len(elements), 2):
-        if (i < len(elements)-1):
+        if i < len(elements)-1:
             elements[i +
                      1] = undo_comma_replacement(elements[i+1], temporal_replacement)
             new_dictionary[elements[i]] = elements[i+1]

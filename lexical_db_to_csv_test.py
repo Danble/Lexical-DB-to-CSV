@@ -24,20 +24,10 @@ def test_clean_headers():
     assert cleaned_headers == {'\\ps', '\\ph'} or {'\\ph', '\\ps'}
 
 
-def test_clean_entries():
-    new_array = clean_entries([
+def test_create_entry_dictionaries():
+    new_array = create_entry_dictionaries([
         '\\lx,Arroyo,\\ph,,,\\ge,"brook, stream",\\re,brook ; stream,,\\dt,24/Jan/2023,,',
         '\\lx,Manzana,\\ph,,,\\ge,apple,\\re,,\\dt,09/Feb/2023'
     ], '&&&')
-    assert new_array == [
-        '\\lx', 'Arroyo',
-        '\\ph', '',
-        '\\ge', '"brook&&& stream"',
-        '\\re', 'brook ; stream',
-        '\\dt', '24/Jan/2023',
-        '\\lx', 'Manzana',
-        '\\ph', '',
-        '\\ge', 'apple',
-        '\\re', '',
-        '\\dt', '09/Feb/2023'
-    ]
+    assert new_array == [{'\\lx': 'Arroyo', '\\ph': '', '\\ge': '"brook, stream"', '\\re': 'brook ; stream',
+                          '\\dt': '24/Jan/2023'}, {'\\lx': 'Manzana', '\\ph': '', '\\ge': 'apple', '\\re': '', '\\dt': '09/Feb/2023'}]

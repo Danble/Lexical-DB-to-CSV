@@ -25,24 +25,23 @@ def clean_headers(headers: Set[str]) -> Set[str]:
     if '\n' in headers:
         headers.remove('\n')
     return headers
-# TODO I think I should split this fn in two
 
 
-def clean_entries(entries: List[str], temporal_comma_replacement: str) -> List[str]:
+def clean_entry(entry: str, temporal_comma_replacement: str) -> List[str]:
+    entry = replace_commas_inside_quotes_safely(
+        entry, temporal_comma_replacement)
+    entry = remove_extra_commas(entry)
+    elements = entry.split(',')
+    return elements
+
+
+def create_entry_dictionaries(entries: List[str], temporal_replacement: str) -> List[Dict[str, str]]:
     dictionaries = []
     for entry in entries:
-        entry = replace_commas_inside_quotes_safely(
-            entry, temporal_comma_replacement)
-        entry = remove_extra_commas(entry)
-        # TODO why is not working?
-        elements = entry.split(',')
-        # TODO before adding elements into dictionaries, we need to save the targeted header duplicates and also add them to the headers set
-        dictionaries.append(turn_entry_into_dictionary(
-            elements, temporal_comma_replacement))
+        entry = clean_entry(entry, temporal_replacement)
+        dictionary = turn_entry_into_dictionary(entry, temporal_replacement)
+        dictionaries.append(dictionary)
     return dictionaries
-
-# def handle_multiple_data_in_entries(entries: List[str]) -> List[Dict[str,str]]:
-# TODO create test
 
 
 def export_to_csv(fieldnames: List[str], data: List[Dict[str, str]], csv_name: str) -> None:
@@ -57,7 +56,7 @@ def export_to_csv(fieldnames: List[str], data: List[Dict[str, str]], csv_name: s
 def create_csv(file_path: str, csv_name: str) -> None:
     gross_dictionary_data = prepare_to_csv_export(file_path)
     headers = list(clean_headers(gross_dictionary_data[0]))
-    entries = clean_entries(gross_dictionary_data[1], '&&&')
+    entries = create_entry_dictionaries(gross_dictionary_data[1], '&&&')
     export_to_csv(headers, entries, csv_name)
 
 
