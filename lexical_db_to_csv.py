@@ -1,6 +1,7 @@
 import csv
 from typing import List, Set, Tuple, Dict
 from helpers import add_headers_to_set, clean_entry, turn_entry_into_dictionary
+from tracker import Tracker
 
 
 # FIRST PART
@@ -26,13 +27,20 @@ def clean_headers(headers: Set[str]) -> Set[str]:
 
 def create_entry_dictionaries(
         entries: List[str],
-        temporal_replacement: str) -> List[Dict[str, str]]:
+        temporal_replacement: str
+) -> List[Dict[str, str]]:
     dictionaries = []
     for entry in entries:
         entry = clean_entry(entry, temporal_replacement)
         dictionary = turn_entry_into_dictionary(entry, temporal_replacement)
         dictionaries.append(dictionary)
     return dictionaries
+
+
+def handle_senses(entry: List[str], headers_to_track: Set[str], main_header: str) -> List[str]:
+    tracker = Tracker(headers_to_track, main_header)
+    tracker.number_duplicates_in_list(entry)
+    return entry
 
 
 def export_to_csv(fieldnames: List[str], data: List[Dict[str, str]], csv_name: str) -> None:

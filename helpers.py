@@ -61,7 +61,8 @@ def replace_multiple_text_fragments(
         text: str,
         regex: Pattern,
         replacement: Optional[str] = None,
-        fragment_to_replace: Optional[str] = None) -> str:
+        fragment_to_replace: Optional[str] = None
+) -> str:
     if re.search(regex, text):
         fragments = re.finditer(regex, text)
         for fragment in fragments:

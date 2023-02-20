@@ -77,7 +77,3 @@ def test_clean_entry():
         '\\re', 'brook ; stream',
         '\\dt', '24/Jan/2023', ''
     ]
-
-# def test_allow_duplicates():
-#   duplicates = allow_duplicates(['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '', '\\ge', 'stream', '\\xv', 'the stream flows'], {'\\ge', '\\xv'})
-#   assert duplicates == ''
