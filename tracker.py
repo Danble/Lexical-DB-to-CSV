@@ -28,10 +28,10 @@ class Tracker:
             self.element_counter[element] += 1
 
     def number_duplicates_in_list(self, pair_entry: List[str]) -> None:
-        for i in range(len(pair_entry)):
-            if pair_entry[i] in self.headers_to_track:
-                self.__handle_counters(pair_entry[i])
-                pair_entry[i] = self.__change_keys_display(pair_entry[i])
+        for index, element in enumerate(pair_entry):
+            if element in self.headers_to_track:
+                self.__handle_counters(element)
+                pair_entry[index] = self.__change_keys_display(element)
 
     def get_new_headers(self):
         return self.__new_headers
