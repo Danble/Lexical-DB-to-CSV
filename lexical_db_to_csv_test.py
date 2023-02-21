@@ -2,7 +2,6 @@ from lexical_db_to_csv import (
     prepare_to_csv_export,
     clean_headers,
     create_entry_dictionaries,
-    handle_senses
 )
 
 
@@ -30,20 +29,13 @@ def test_clean_headers():
 
 
 def test_create_entry_dictionaries():
-    new_list = create_entry_dictionaries([
+    new_tuple = create_entry_dictionaries([
         '\\lx,Arroyo,\\ph,,,\\ge,"brook, stream",\\re,brook ; stream,,\\dt,24/Jan/2023,,',
         '\\lx,Manzana,\\ph,,,\\ge,apple,\\re,,\\dt,09/Feb/2023'
     ], '&&&')
-    assert new_list == [
+    assert new_tuple == (set(), [
         {'\\lx': 'Arroyo', '\\ph': '', '\\ge': '"brook, stream"',
             '\\re': 'brook ; stream', '\\dt': '24/Jan/2023'},
         {'\\lx': 'Manzana', '\\ph': '', '\\ge': 'apple',
          '\\re': '', '\\dt': '09/Feb/2023'}
-    ]
-
-
-def test_handle_senses():
-    entry = handle_senses(['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '',
-                          '\\ge', 'stream', '\\xv', 'the stream flows'], {'\\ge', '\\xv'}, '\\ge')
-    assert entry == ['\\lx', 'Arroyo', '\\ge1', 'brook', '\\xv1',
-                     '', '\\ge2', 'stream', '\\xv2', 'the stream flows']
+    ])

@@ -1,5 +1,6 @@
 import re
-from typing import List, Dict, Pattern, Optional
+from typing import List, Dict, Pattern, Optional, Set, Tuple, Union
+from tracker import Tracker
 
 # FIRST PART
 
@@ -49,12 +50,25 @@ def turn_entry_into_dictionary(elements: List[str], temporal_replacement: str) -
     return new_dictionary
 
 
-def clean_entry(entry: str, temporal_comma_replacement: str) -> List[str]:
+def clean_entry(
+        entry: str,
+        temporal_comma_replacement: str,
+        allow_senses: Optional[bool] = False
+) -> Union[List[str], Tuple[Set[str], List[str]]]:
     entry = replace_commas_inside_quotes_safely(
         entry, temporal_comma_replacement)
     entry = remove_extra_commas(entry)
     elements = entry.split(',')
+    if allow_senses:
+        new_headers = handle_senses(elements, {'\\ge', '\\re'}, '\\ge')
+        return (new_headers, elements)
     return elements
+
+
+def handle_senses(entry: List[str], headers_to_track: Set[str], main_header: str) -> Set[str]:
+    tracker = Tracker(headers_to_track, main_header)
+    tracker.number_duplicates_in_list(entry)
+    return tracker.get_new_headers()
 
 
 def replace_multiple_text_fragments(

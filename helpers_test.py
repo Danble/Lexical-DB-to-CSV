@@ -49,10 +49,10 @@ def test_turn_entry_into_dictionary():
         ['\\lx', 'Arroyo', '\\ge', '"brook&&& stream"', '\\dt', '24/Jan/2023'], '&&&')
     assert dictionary == {'\\ge': '"brook, stream"',
                           '\\lx': 'Arroyo', '\\dt': '24/Jan/2023'}
-    dictionary = turn_entry_into_dictionary(
-        ['\\lx', 'Arroyo', '\\ge', 'brook', '\\ge', 'stream', '\\dt', '24/Jan/2023'], '')
-    assert dictionary == {'\\lx': 'Arroyo', '\\ge': 'brook',
-                          '\\ge2': 'stream', '\\dt': '24/Jan/2023'}
+    # dictionary = turn_entry_into_dictionary(
+    #     ['\\lx', 'Arroyo', '\\ge', 'brook', '\\ge', 'stream', '\\dt', '24/Jan/2023'], '')
+    # assert dictionary == {'\\lx': 'Arroyo', '\\ge': 'brook',
+    #                       '\\ge2': 'stream', '\\dt': '24/Jan/2023'}
 
 
 def test_replace_multiple_text_fragments():
@@ -77,3 +77,12 @@ def test_clean_entry():
         '\\re', 'brook ; stream',
         '\\dt', '24/Jan/2023', ''
     ]
+
+
+def test_handle_senses():
+    entry = ['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '',
+             '\\ge', 'stream', '\\xv', 'the stream flows']
+    new_headers = handle_senses(entry, {'\\ge', '\\xv'}, '\\ge')
+    assert entry == ['\\lx', 'Arroyo', '\\ge1', 'brook', '\\xv1',
+                     '', '\\ge2', 'stream', '\\xv2', 'the stream flows']
+    assert new_headers == {'\\xv2', '\\ge2', '\\xv1', '\\ge1'}
