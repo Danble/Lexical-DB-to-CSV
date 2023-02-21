@@ -15,9 +15,9 @@ def create_csv(file_path: str, csv_name: str, allow_senses: Optional[bool] = Fal
     entries = entries_with_new_headers[1]
     if allow_senses:
         all_headers = all_headers.union(entries_with_new_headers[0])
-    headers = list(all_headers)
+    headers = sorted(list(all_headers))
     export_to_csv(headers, entries, csv_name)
 
 
 if __name__ == "__main__":
-    create_csv('./test_sheet_2.csv', 'test_result_improved.csv')
+    create_csv('./chamorro_example.csv', 'test_result_improved.csv', True)

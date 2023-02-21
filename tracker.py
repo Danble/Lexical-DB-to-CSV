@@ -13,7 +13,7 @@ class Tracker:
         key_counter = str(self.element_counter[element])
         element += header_counter + \
             ('-' + key_counter if self.element_counter[element]
-             > 1 and self.main_header != element else '')
+             > 0 and self.main_header != element else '')
         self.__new_headers.add(element)
         return element
 

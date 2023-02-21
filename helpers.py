@@ -60,7 +60,7 @@ def clean_entry(
     entry = remove_extra_commas(entry)
     elements = entry.split(',')
     if allow_senses:
-        new_headers = handle_senses(elements, {'\\ge', '\\re'}, '\\ge')
+        new_headers = handle_senses(elements, {'\\de', '\\xe', '\\xv'}, '\\de')
         return (new_headers, elements)
     return elements
 
