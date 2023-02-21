@@ -34,7 +34,7 @@ def create_entry_dictionaries(
     for entry in entries:
         entry = clean_entry(entry, temporal_replacement, allow_senses)
         if allow_senses:
-            all_headers.union(entry[0])
+            all_headers = all_headers.union(entry[0])
         dictionary = turn_entry_into_dictionary(
             entry[1] if allow_senses else entry, temporal_replacement)
         dictionaries.append(dictionary)
