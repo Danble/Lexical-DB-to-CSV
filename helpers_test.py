@@ -83,6 +83,6 @@ def test_handle_senses():
     entry = ['\\lx', 'Arroyo', '\\ge', 'brook', '\\xv', '',
              '\\ge', 'stream', '\\xv', 'the stream flows']
     new_headers = handle_senses(entry, {'\\ge', '\\xv'}, '\\ge')
-    assert entry == ['\\lx', 'Arroyo', '\\ge1', 'brook', '\\xv1',
-                     '', '\\ge2', 'stream', '\\xv2', 'the stream flows']
-    assert new_headers == {'\\xv2', '\\ge2', '\\xv1', '\\ge1'}
+    assert entry == ['\\lx', 'Arroyo', '\\ge1', 'brook', '\\xv1-1',
+                     '', '\\ge2', 'stream', '\\xv2-1', 'the stream flows']
+    assert new_headers == {'\\xv2-1', '\\ge2', '\\xv1-1', '\\ge1'}

@@ -26,13 +26,13 @@ tracker2 = Tracker({'\\lx', '\\xv'}, '\\lx')
     ('input_x', 'expected'),
     (
         ('\\lx', '\\lx1'),
-        ('\\xv', '\\xv1'),
+        ('\\xv', '\\xv1-1'),
         ('\\xv', '\\xv1-2'),
         ('\\lx', '\\lx2'),
-        ('\\xv', '\\xv2'),
+        ('\\xv', '\\xv2-1'),
         ('\\lx', '\\lx3'),
         ('\\lx', '\\lx4'),
-        ('\\xv', '\\xv4'),
+        ('\\xv', '\\xv4-1'),
         ('\\xv', '\\xv4-2'),
         ('\\xv', '\\xv4-3'),
     )
@@ -50,10 +50,10 @@ tracker3 = Tracker({'\\lx', '\\xv'}, '\\lx')
     ('input_x', 'expected'),
     (
         ('\\lx', {'\\lx1'}),
-        ('\\xv', {'\\lx1', '\\xv1'}),
-        ('\\xv', {'\\lx1', '\\xv1', '\\xv1-2'}),
-        ('\\lx', {'\\lx1', '\\xv1', '\\xv1-2', '\\lx2'}),
-        ('\\lx', {'\\lx1', '\\xv1', '\\xv1-2', '\\lx2', '\\lx3'}),
+        ('\\xv', {'\\lx1', '\\xv1-1'}),
+        ('\\xv', {'\\lx1', '\\xv1-1', '\\xv1-2'}),
+        ('\\lx', {'\\lx1', '\\xv1-1', '\\xv1-2', '\\lx2'}),
+        ('\\lx', {'\\lx1', '\\xv1-1', '\\xv1-2', '\\lx2', '\\lx3'}),
     )
 )
 def test_get_new_headers(input_x, expected):
@@ -82,12 +82,12 @@ def test_number_duplicates_in_list():
     assert my_list == [
         '\\lx', 'Arroyo',
         '\\ge1', 'brook',
-        '\\xv1', '',
+        '\\xv1-1', '',
         '\\ge2', 'stream',
-        '\\xv2', 'the stream flows',
+        '\\xv2-1', 'the stream flows',
         '\\ge3', 'river',
         '\\ge4', 'water',
-        '\\xv4', 'water also flows'
+        '\\xv4-1', 'water also flows'
     ]
 
 
@@ -109,14 +109,14 @@ def test_number_duplicates_in_list_with_multiple_examples():
     assert my_list == [
         '\\lx', 'Arroyo',
         '\\ge1', 'stream',
-        '\\xv1', 'the stream',
+        '\\xv1-1', 'the stream',
         '\\xv1-2', 'the stream flows',
         '\\ge2', 'water',
-        '\\xv2', 'the water is blue',
+        '\\xv2-1', 'the water is blue',
         '\\xv2-2', 'the water is green',
         '\\xv2-3', 'the water is pink',
         '\\ge3', 'brook',
-        '\\xv3', 'the brook is flowing'
+        '\\xv3-1', 'the brook is flowing'
     ]
 
 
@@ -143,14 +143,14 @@ def test_number_duplicates_in_list_considering_some_headers_only():
         '\\lx', 'Aprender',
         '\\n', 'new',
         '\\ge1', 'nearby',
-        '\\re1', 'nearby',
+        '\\re1-1', 'nearby',
         '\\gn', '',
         '\\dt', '11/Jan/2005',
         '\\ps', 'v',
         '\\n', '0281a',
         '\\ge2', '"learn999 teach999 tame"',
-        '\\re2', 'learn ; teach ; tame',
-        '\\xv2', 'learn is fun',
+        '\\re2-1', 'learn ; teach ; tame',
+        '\\xv2-1', 'learn is fun',
         '\\xv2-2', 'learning is good',
         '\\gn', 'apprendre',
         '\\dt', '28/Jan/2005'
