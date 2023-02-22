@@ -53,14 +53,16 @@ def turn_entry_into_dictionary(elements: List[str], temporal_replacement: str) -
 def clean_entry(
         entry: str,
         temporal_comma_replacement: str,
-        allow_senses: Optional[bool] = False
+        headers_to_track: Optional[Dict[str, Set[str]]] = None
 ) -> Union[List[str], Tuple[Set[str], List[str]]]:
     entry = replace_commas_inside_quotes_safely(
         entry, temporal_comma_replacement)
     entry = remove_extra_commas(entry)
     elements = entry.split(',')
-    if allow_senses:
-        new_headers = handle_senses(elements, {'\\de', '\\xe', '\\xv'}, '\\de')
+    if headers_to_track:
+        main_header = list(headers_to_track.keys())[0]
+        new_headers = handle_senses(
+            elements, headers_to_track[main_header], main_header)
         return (new_headers, elements)
     return elements
 

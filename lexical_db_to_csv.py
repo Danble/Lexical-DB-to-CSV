@@ -27,16 +27,16 @@ def clean_headers(headers: Set[str]) -> Set[str]:
 def create_entry_dictionaries(
         entries: List[str],
         temporal_replacement: str,
-        allow_senses: Optional[bool] = False
+        headers_to_track: Optional[Dict[str, Set[str]]] = None
 ) -> Union[List[Dict[str, str]], Tuple[Set[str], List[Dict[str, str]]]]:
     dictionaries = []
     all_headers = set()
     for entry in entries:
-        entry = clean_entry(entry, temporal_replacement, allow_senses)
-        if allow_senses:
+        entry = clean_entry(entry, temporal_replacement, headers_to_track)
+        if headers_to_track:
             all_headers = all_headers.union(entry[0])
         dictionary = turn_entry_into_dictionary(
-            entry[1] if allow_senses else entry, temporal_replacement)
+            entry[1] if headers_to_track else entry, temporal_replacement)
         dictionaries.append(dictionary)
     return (all_headers, dictionaries)
 
