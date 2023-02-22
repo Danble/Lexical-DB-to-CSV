@@ -49,10 +49,6 @@ def test_turn_entry_into_dictionary():
         ['\\lx', 'Arroyo', '\\ge', '"brook&&& stream"', '\\dt', '24/Jan/2023'], '&&&')
     assert dictionary == {'\\ge': '"brook, stream"',
                           '\\lx': 'Arroyo', '\\dt': '24/Jan/2023'}
-    # dictionary = turn_entry_into_dictionary(
-    #     ['\\lx', 'Arroyo', '\\ge', 'brook', '\\ge', 'stream', '\\dt', '24/Jan/2023'], '')
-    # assert dictionary == {'\\lx': 'Arroyo', '\\ge': 'brook',
-    #                       '\\ge2': 'stream', '\\dt': '24/Jan/2023'}
 
 
 def test_replace_multiple_text_fragments():

@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Set
+from typing import Optional, Dict, Set, IO
 from lexical_db_to_csv import (
     prepare_to_csv_export,
     clean_headers,
@@ -14,7 +14,7 @@ def create_csv(
         file_path: str,
         csv_name: str,
         headers_to_track: Optional[Dict[str, Set[str]]] = None
-) -> None:
+) -> IO:
     gross_dictionary_data = prepare_to_csv_export(file_path)
     all_headers = clean_headers(gross_dictionary_data[0])
     entries_with_new_headers = create_entry_dictionaries(
